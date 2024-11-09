@@ -1,0 +1,11 @@
+<app-user-card
+  class="user-list"
+  *ngFor="let user of userService.users$ | async"
+  [user]="user"
+  (deleteUser)="deleteUser($event)"
+  (editUser)="onEditUser(user)">
+</app-user-card>
+<button class="user-list__button"
+        (click)="onAddUser()">
+  Добавить пользователя
+</button>

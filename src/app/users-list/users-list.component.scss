@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.user-list {
+  position: relative;
+  display: block;
+
+  &__button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 40px;
+    background-color: dodgerblue;
+    color: yellow;
+    font-weight: bold;
+  }
+}

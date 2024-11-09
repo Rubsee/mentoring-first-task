@@ -1,0 +1,40 @@
+<div>
+  <form [formGroup]="addUserForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Имя</mat-label>
+      <input matInput formControlName="name" placeholder="Введите имя">
+      <mat-error *ngIf="addUserForm.get('name')?.invalid">Имя обязательно</mat-error>
+    </mat-form-field>
+
+    <div formGroupName="address"> <!-- Указываем formGroupName для address -->
+      <mat-form-field appearance="fill">
+        <mat-label>Улица</mat-label>
+        <input matInput formControlName="street" placeholder="Введите улицу">
+        <mat-error *ngIf="addUserForm.get('address.street')?.invalid">Улица обязательна</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Номер квартиры</mat-label>
+        <input matInput formControlName="suite" placeholder="Введите номер квартиры">
+        <mat-error *ngIf="addUserForm.get('address.suite')?.invalid">Номер квартиры обязателен</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Город</mat-label>
+        <input matInput formControlName="city" placeholder="Введите город">
+        <mat-error *ngIf="addUserForm.get('address.city')?.invalid">Город обязателен</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Почтовый индекс</mat-label>
+        <input matInput formControlName="zipcode" placeholder="Введите почтовый индекс">
+        <mat-error *ngIf="addUserForm.get('address.zipcode')?.invalid">Индекс обязателен</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Введите email">
+      <mat-error *ngIf="addUserForm.get('email')?.invalid">Введите корректный email</mat-error>
+    </mat-form-field>
+  </form>
+</div>

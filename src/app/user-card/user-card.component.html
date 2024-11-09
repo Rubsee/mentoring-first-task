@@ -1,0 +1,20 @@
+<div class="user-card">
+  <span>id: {{ user.id }} </span><br>
+  <span>name: {{ user.name }} </span><br>
+  <span>address:</span>
+  <ul>
+    <li>street: {{ user.address.street }}</li>
+    <li>suite: {{ user.address.suite }}</li>
+    <li>city: {{ user.address.city }}</li>
+    <li>zipcode: {{ user.address.zipcode }}</li>
+  </ul>
+  <span>email: {{ user.email }} </span><br>
+  <button
+    (click)="onDelete()"
+  >Удалить
+  </button>
+  <button
+    (click)="onEdit()"
+  >Редактировать
+  </button>
+</div>

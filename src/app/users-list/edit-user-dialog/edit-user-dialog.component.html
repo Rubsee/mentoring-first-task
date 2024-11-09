@@ -1,0 +1,42 @@
+<form [formGroup]="form">
+  <h2 mat-dialog-title>{{ data.isEdit ? 'Редактировать пользователя' : 'Создать пользователя' }}</h2>
+
+  <div>
+    <label>ID: </label>
+    <span>{{ form.get('id')?.value }}</span>
+  </div>
+
+  <div>
+    <label>Name: </label>
+    <input formControlName="name" placeholder="Введите имя">
+  </div>
+
+  <div formGroupName="address">
+    <div>
+      <label>Street: </label>
+      <input formControlName="street" placeholder="Введите улицу">
+    </div>
+    <div>
+      <label>Suite: </label>
+      <input formControlName="suite" placeholder="Введите корпус">
+    </div>
+    <div>
+      <label>Сity: </label>
+      <input formControlName="city" placeholder="Введите город">
+    </div>
+    <div>
+      <label>Zipcode: </label>
+      <input formControlName="zipcode" placeholder="Введите индекс">
+    </div>
+  </div>
+  <div>
+    <label>Email: </label>
+    <input formControlName="email" placeholder="Введите email">
+  </div>
+
+  <div>
+    <button mat-button type="button" (click)="onCancel()">Отмена</button>
+    <button mat-button color="primary" type="submit" (click)="onSave()">{{ data.isEdit ? 'Сохранить' : 'Создать' }}
+    </button>
+  </div>
+</form>
