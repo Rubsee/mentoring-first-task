@@ -44,20 +44,6 @@ export class EditUserDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Заполняем форму данными при наличии
-    // if (this.data.user) {
-    //   this.form.patchValue({
-    //     id: this.data.user.id,
-    //     name: this.data.user.name,
-    //     email: this.data.user.email,
-    //     address: {
-    //       street: this.data.user.address?.street,
-    //       suite: this.data.user.address?.suite,
-    //       city: this.data.user.address?.city,
-    //       zipcode: this.data.user.address?.zipcode,
-    //     }
-    //   });
-    // }
     if (this.data.isEdit) {
       // Заполняем форму данными, если редактируем существующего пользователя
       this.form.patchValue(this.data.user);
