@@ -20,7 +20,6 @@ import {UsersApiService} from "../services/users-api.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersListComponent {
-  // readonly userService = inject(UsersService);
   private readonly store = inject(Store);
   public readonly users$ = this.store.select(selectUsers);
   readonly userApiService = inject(UsersApiService);
