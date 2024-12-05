@@ -1,6 +1,6 @@
 <app-user-card
   class="user-list"
-  *ngFor="let user of userService.users$ | async"
+  *ngFor="let user of users$ | async"
   [user]="user"
   (deleteUser)="deleteUser($event)"
   (editUser)="onEditUser(user)">

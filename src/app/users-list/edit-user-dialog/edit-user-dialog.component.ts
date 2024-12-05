@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, inject, Inject, OnInit} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -12,7 +12,11 @@ import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
 import {User} from "../../interfaces/user.interface";
 import {MatButton} from "@angular/material/button";
-import {UsersService} from "../../services/users.service";
+
+import {Store} from "@ngrx/store";
+import {UsersActions} from "../store/users.actions";
+import {take} from "rxjs";
+import {selectNewId} from "../store/users.selectors";
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -22,11 +26,12 @@ import {UsersService} from "../../services/users.service";
   styleUrl: './edit-user-dialog.component.scss'
 })
 export class EditUserDialogComponent implements OnInit {
+  private readonly store = inject(Store);
   form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private usersService: UsersService,
+    // private usersService: UsersService,
     private dialogRef: MatDialogRef<EditUserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { user: User; isEdit: boolean }
   ) {
@@ -48,20 +53,30 @@ export class EditUserDialogComponent implements OnInit {
       // Заполняем форму данными, если редактируем существующего пользователя
       this.form.patchValue(this.data.user);
     } else {
-      // Генерируем новый id для нового пользователя
-      const newId = this.usersService.generateNewId();
-      this.form.patchValue({id: newId});
+      // // Генерируем новый id для нового пользователя
+      // const newId = this.usersService.generateNewId();
+      // this.form.patchValue({id: newId});
+
+      this.store.dispatch(UsersActions.generateNewId());
+      this.store.select(selectNewId).subscribe((newId) => {
+        this.form.patchValue({id: newId});
+      });
     }
   }
 
-  onSave(): void {
-    if (this.form.valid) {
+  onSave()
+    :
+    void {
+    if (this.form.valid
+    ) {
       console.log(this.form.value);
       this.dialogRef.close(this.form.value); // Передаём данные формы при закрытии
     }
   }
 
-  onCancel(): void {
+  onCancel()
+    :
+    void {
     this.dialogRef.close(null); // Закрываем диалог без изменений
   }
 }
