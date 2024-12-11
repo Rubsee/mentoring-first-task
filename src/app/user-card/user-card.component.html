@@ -1,6 +1,8 @@
 <div class="user-card">
-  <span>id: {{ user.id }} </span><br>
-  <span>name: {{ user.name }} </span><br>
+  <div class="user-card__title">
+    <span>id: {{ user.id }} </span>
+    <span>name: {{ user.name }} </span>
+  </div>
   <span>address:</span>
   <ul>
     <li>street: {{ user.address.street }}</li>
@@ -9,12 +11,6 @@
     <li>zipcode: {{ user.address.zipcode }}</li>
   </ul>
   <span>email: {{ user.email }} </span><br>
-  <button
-    (click)="onDelete()"
-  >Удалить
-  </button>
-  <button
-    (click)="onEdit()"
-  >Редактировать
-  </button>
+  <button (click)="onDelete()">Удалить</button>
+  <button (click)="onEdit()">Редактировать</button>
 </div>

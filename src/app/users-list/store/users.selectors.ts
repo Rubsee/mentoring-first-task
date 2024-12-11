@@ -1,11 +1,5 @@
-import {User} from "../../interfaces/user.interface";
 import {createSelector} from "@ngrx/store";
-
-interface UserState {
-  users: User[];
-  newId?: number;
-  error?: any;
-}
+import {UserState} from "../../interfaces/userState.interface";
 
 interface AppState {
   users: UserState
@@ -17,8 +11,3 @@ export const selectUsers = createSelector(
   selectUsersFeature,
   (state: UserState) => state.users,
 )
-
-export const selectNewId = createSelector(
-  selectUsersFeature,
-  (state: UserState) => state.newId
-);

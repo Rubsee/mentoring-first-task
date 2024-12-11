@@ -3,7 +3,6 @@ import {Injectable, inject} from "@angular/core";
 import {User} from "../interfaces/user.interface";
 
 @Injectable({providedIn: "root"})
-
 export class UsersApiService {
   readonly apiService = inject(HttpClient);
 

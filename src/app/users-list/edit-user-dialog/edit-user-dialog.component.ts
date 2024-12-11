@@ -1,4 +1,4 @@
-import {Component, inject, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -10,33 +10,30 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
-import {User} from "../../interfaces/user.interface";
 import {MatButton} from "@angular/material/button";
-
-import {Store} from "@ngrx/store";
-import {UsersActions} from "../store/users.actions";
-import {take} from "rxjs";
-import {selectNewId} from "../store/users.selectors";
+import {EditUserDialogData} from "../../interfaces/editUserDialogData.interface";
 
 @Component({
   selector: 'app-edit-user-dialog',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormField, MatInput, NgIf, MatDialogClose, MatDialogTitle, MatDialogActions, MatButton],
+  imports: [ReactiveFormsModule, MatFormField, MatInput, NgIf, MatDialogClose, MatDialogTitle, MatDialogActions,
+    MatButton],
   templateUrl: './edit-user-dialog.component.html',
   styleUrl: './edit-user-dialog.component.scss'
 })
 export class EditUserDialogComponent implements OnInit {
-  private readonly store = inject(Store);
-  form: FormGroup;
+  readonly form: FormGroup = this.getUserFormGroup();
+
 
   constructor(
     private fb: FormBuilder,
-    // private usersService: UsersService,
     private dialogRef: MatDialogRef<EditUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { user: User; isEdit: boolean }
+    @Inject(MAT_DIALOG_DATA) public readonly data: EditUserDialogData,
   ) {
-    this.form = this.fb.group({
-      id: [null],
+  }
+
+  private getUserFormGroup(): FormGroup {
+    return this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: this.fb.group({
@@ -45,38 +42,25 @@ export class EditUserDialogComponent implements OnInit {
         city: [''],
         zipcode: [''],
       }),
-    });
+    })
+  }
+
+  private initFormValue(): void {
+    const user = this.data.user;
+
+    if (user) {
+      this.form.patchValue(user);
+    }
   }
 
   ngOnInit(): void {
-    if (this.data.isEdit) {
-      // Заполняем форму данными, если редактируем существующего пользователя
-      this.form.patchValue(this.data.user);
-    } else {
-      // // Генерируем новый id для нового пользователя
-      // const newId = this.usersService.generateNewId();
-      // this.form.patchValue({id: newId});
-
-      this.store.dispatch(UsersActions.generateNewId());
-      this.store.select(selectNewId).subscribe((newId) => {
-        this.form.patchValue({id: newId});
-      });
-    }
+    this.initFormValue();
   }
 
-  onSave()
-    :
-    void {
-    if (this.form.valid
-    ) {
+  onSave(): void {
+    if (this.form.valid) {
       console.log(this.form.value);
-      this.dialogRef.close(this.form.value); // Передаём данные формы при закрытии
+      this.dialogRef.close(this.form.value);
     }
-  }
-
-  onCancel()
-    :
-    void {
-    this.dialogRef.close(null); // Закрываем диалог без изменений
   }
 }

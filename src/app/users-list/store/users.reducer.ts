@@ -1,58 +1,46 @@
 import {createReducer, on} from "@ngrx/store";
 import {UsersActions} from "./users.actions";
-import {User} from "../../interfaces/user.interface";
+import {LoadingStatus} from "../../enums/loading-status.enum";
+import {State} from "../../interfaces/state.interface";
 
-const initialState: { users: User[], error: any, loading: boolean } = {
+const initialState: State = {
   users: [],
   error: null,
-  loading: false,
-};
+  loadingStatus: LoadingStatus.ERROR,
+}
 
 export const userReducer = createReducer(
   initialState,
-  on(UsersActions.set, (state, payload) => ({
+  on(UsersActions.set, (state, {users}) => ({
     ...state,
-    users: payload.users
+    users: users,
   })),
-  on(UsersActions.edit, (state, payload) => ({
+  on(UsersActions.edit, (state, {editedUser}) => ({
     ...state,
-    users: state.users.map((user) => {
-      if (user.id === payload.editedUser.id) {
-        return payload.editedUser;
-      } else {
-        return user;
-      }
-    })
+    users: state.users.map((user) => user.id === editedUser.id ? editedUser : user),
   })),
-  on(UsersActions.create, (state, payload) => ({
+  on(UsersActions.create, (state, {user}) => ({
     ...state,
-    users: [...state.users, payload.user],
+    users: [...state.users, user],
   })),
-  on(UsersActions.delete, (state, payload) => ({
+  on(UsersActions.delete, (state, {user}) => ({
     ...state,
-    users: state.users.filter((user) => user.id !== payload.user.id),
+    users: state.users.filter((users) => users.id !== user.id),
   })),
-  on(UsersActions.generateNewId, (state) => {
-    const maxId = state.users.length ? Math.max(...state.users.map(user => user.id)) : 0;
-    return {
-      ...state,
-      newId: maxId + 1, // Генерация нового ID
-    };
-  }),
   on(UsersActions.loadUsers, (state) => ({
     ...state,
-    loading: true,
+    loadingStatus: LoadingStatus.LOADED,
     error: null,
   })),
-  on(UsersActions.fetchSuccess, (state, {users}) => ({
+  on(UsersActions.loadUsersSuccess, (state, {users}) => ({
     ...state,
     users,
-    loading: false,
+    loadingStatus: LoadingStatus.ERROR,
     error: null,
   })),
-  on(UsersActions.fetchFailure, (state, {error}) => ({
+  on(UsersActions.loadUsersFailure, (state, {error}) => ({
     ...state,
-    loading: false,
+    loadingStatus: LoadingStatus.ERROR,
     error,
   }))
 );

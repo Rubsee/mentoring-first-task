@@ -15,11 +15,11 @@ export const loadUsers = createEffect(() => {
       return apiService.getUsers().pipe(
         tap((users) => console.log('API response: ', users)),
         map((users) => {
-          return UsersActions.fetchSuccess({users});
+          return UsersActions.loadUsersSuccess({users});
         }),
         catchError((error) => {
           console.error('API error: ', error);
-          return of(UsersActions.fetchFailure({error}));
+          return of(UsersActions.loadUsersFailure({error}));
         })
       );
     })

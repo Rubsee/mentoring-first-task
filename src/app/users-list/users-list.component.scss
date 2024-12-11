@@ -3,17 +3,12 @@
   flex-wrap: wrap;
 }
 
-.user-list {
-  position: relative;
-  display: block;
-
-  &__button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 40px;
-    background-color: dodgerblue;
-    color: yellow;
-    font-weight: bold;
-  }
+.user-list__button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 40px;
+  background-color: dodgerblue;
+  color: yellow;
+  font-weight: bold;
 }

@@ -10,12 +10,12 @@ import {User} from "../interfaces/user.interface";
 })
 export class UserCardComponent {
   @Input({required: true}) user!: User;
-  @Output() deleteUser = new EventEmitter<User>();
+  @Output() deleteUser = new EventEmitter<void>();
 
   @Output() editUser = new EventEmitter<User>();
 
   onDelete() {
-    this.deleteUser.emit(this.user);
+    this.deleteUser.emit();
   }
 
   onEdit(): void {
