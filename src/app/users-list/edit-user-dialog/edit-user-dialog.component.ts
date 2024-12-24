@@ -6,12 +6,13 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from "@angular/material/dialog";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {EditUserDialogData} from "../../interfaces/editUserDialogData.interface";
+import {User} from "../../interfaces/user.interface";
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -22,18 +23,19 @@ import {EditUserDialogData} from "../../interfaces/editUserDialogData.interface"
   styleUrl: './edit-user-dialog.component.scss'
 })
 export class EditUserDialogComponent implements OnInit {
-  readonly form: FormGroup = this.getUserFormGroup();
+  readonly form = this.getUserFormGroup();
 
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditUserDialogComponent>,
+    private dialogRef: MatDialogRef<EditUserDialogComponent, User>,
     @Inject(MAT_DIALOG_DATA) public readonly data: EditUserDialogData,
   ) {
   }
 
-  private getUserFormGroup(): FormGroup {
+  private getUserFormGroup() {
     return this.fb.group({
+      id: [this.data.user?.id || null],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: this.fb.group({
@@ -57,10 +59,13 @@ export class EditUserDialogComponent implements OnInit {
     this.initFormValue();
   }
 
-  onSave(): void {
+  onSave() {
     if (this.form.valid) {
       console.log(this.form.value);
-      this.dialogRef.close(this.form.value);
+      this.dialogRef.close({
+        ...this.data.user,
+        ...this.form.getRawValue() as User
+      })
     }
   }
 }

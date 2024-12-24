@@ -1,13 +1,13 @@
-interface Company {
-  name: string,
-  catchPhrase: string,
-  bs: string,
-}
-
-interface Geo {
-  lat: string,
-  lng: string,
-}
+// interface Company {
+//   name: string,
+//   catchPhrase: string,
+//   bs: string,
+// }
+//
+// interface Geo {
+//   lat: string,
+//   lng: string,
+// }
 
 interface Address {
   street: string,
@@ -21,8 +21,8 @@ export interface User {
   name: string,
   email: string,
   address: Address,
-  geo: Geo,
-  phone: string,
-  website: string,
-  company: Company,
+  // geo: Geo,
+  // phone: string,
+  // website: string,
+  // company: Company,
 }
