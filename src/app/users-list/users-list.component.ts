@@ -60,7 +60,6 @@ export class UsersListComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result)
         this.store.dispatch(UsersActions.edit({editedUser: result}));
       }
     });

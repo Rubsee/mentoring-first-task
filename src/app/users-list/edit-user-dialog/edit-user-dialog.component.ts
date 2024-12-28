@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -23,15 +23,11 @@ import {User} from "../../interfaces/user.interface";
   styleUrl: './edit-user-dialog.component.scss'
 })
 export class EditUserDialogComponent implements OnInit {
+  public readonly data: EditUserDialogData = inject(MAT_DIALOG_DATA);
+  private readonly dialogRef = inject(MatDialogRef<EditUserDialogComponent, User>);
+  private readonly fb = inject(FormBuilder);
+
   readonly form = this.getUserFormGroup();
-
-
-  constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditUserDialogComponent, User>,
-    @Inject(MAT_DIALOG_DATA) public readonly data: EditUserDialogData,
-  ) {
-  }
 
   private getUserFormGroup() {
     return this.fb.group({
@@ -61,7 +57,6 @@ export class EditUserDialogComponent implements OnInit {
 
   onSave() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this.dialogRef.close({
         ...this.data.user,
         ...this.form.getRawValue() as User
