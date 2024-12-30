@@ -1,29 +1,31 @@
-import {createReducer, on} from "@ngrx/store";
-import {UsersActions} from "./users.actions";
-import {LoadingStatus} from "../../enums/loading-status.enum";
-import {State} from "../../interfaces/state.interface";
+import { createReducer, on } from '@ngrx/store';
+import { UsersActions } from './users.actions';
+import { LoadingStatus } from '../../enums/loading-status.enum';
+import { State } from '../../interfaces/state.interface';
 
 const initialState: State = {
   users: [],
   error: null,
   loadingStatus: LoadingStatus.ERROR,
-}
+};
 
 export const userReducer = createReducer(
   initialState,
-  on(UsersActions.set, (state, {users}) => ({
+  on(UsersActions.set, (state, { users }) => ({
     ...state,
     users: users,
   })),
-  on(UsersActions.edit, (state, {editedUser}) => ({
+  on(UsersActions.edit, (state, { editedUser }) => ({
     ...state,
-    users: state.users.map((user) => user.id === editedUser.id ? editedUser : user),
+    users: state.users.map((user) =>
+      user.id === editedUser.id ? editedUser : user,
+    ),
   })),
-  on(UsersActions.create, (state, {user}) => ({
+  on(UsersActions.create, (state, { user }) => ({
     ...state,
     users: [...state.users, user],
   })),
-  on(UsersActions.delete, (state, {user}) => ({
+  on(UsersActions.delete, (state, { user }) => ({
     ...state,
     users: state.users.filter((users) => users.id !== user.id),
   })),
@@ -32,16 +34,15 @@ export const userReducer = createReducer(
     loadingStatus: LoadingStatus.LOADED,
     error: null,
   })),
-  on(UsersActions.loadUsersSuccess, (state, {users}) => ({
+  on(UsersActions.loadUsersSuccess, (state, { users }) => ({
     ...state,
     users,
     loadingStatus: LoadingStatus.ERROR,
     error: null,
   })),
-  on(UsersActions.loadUsersFailure, (state, {error}) => ({
+  on(UsersActions.loadUsersFailure, (state, { error }) => ({
     ...state,
     loadingStatus: LoadingStatus.ERROR,
     error,
-  }))
+  })),
 );
-

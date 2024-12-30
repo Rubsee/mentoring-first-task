@@ -1,8 +1,8 @@
-import {User} from "./user.interface";
-import {LoadingStatus} from "../enums/loading-status.enum";
+import { User } from './user.interface';
+import { LoadingStatus } from '../enums/loading-status.enum';
 
 export interface State {
-  users: User[],
-  error: any,
-  loadingStatus: LoadingStatus
+  users: User[];
+  error: any;
+  loadingStatus: LoadingStatus;
 }
