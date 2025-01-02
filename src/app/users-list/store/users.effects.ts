@@ -17,7 +17,6 @@ export const loadUsers = createEffect(
             return UsersActions.loadUsersSuccess({ users });
           }),
           catchError((error) => {
-            console.error('API error: ', error);
             return of(UsersActions.loadUsersFailure({ error }));
           }),
         );

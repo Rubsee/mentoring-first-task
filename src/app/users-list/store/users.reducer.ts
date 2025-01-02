@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { UsersActions } from './users.actions';
 import { LoadingStatus } from '../../enums/loading-status.enum';
-import { State } from '../../interfaces/state.interface';
+import { UsersReducerState } from '../../interfaces/usersReducerState.interface';
 
-const initialState: State = {
+const initialState: UsersReducerState = {
   users: [],
   error: null,
   loadingStatus: LoadingStatus.ERROR,

@@ -1,13 +1,13 @@
 import { createSelector } from '@ngrx/store';
-import { UserState } from '../../interfaces/userState.interface';
+import { UsersSelectorState } from '../../interfaces/usersSelectorState.interface';
 
 interface AppState {
-  users: UserState;
+  users: UsersSelectorState;
 }
 
 export const selectUsersFeature = (state: AppState) => state.users;
 
 export const selectUsers = createSelector(
   selectUsersFeature,
-  (state: UserState) => state.users,
+  (state: UsersSelectorState) => state.users,
 );

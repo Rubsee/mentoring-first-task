@@ -13,7 +13,6 @@ export class LocalStorageUsersService {
       try {
         return JSON.parse(data) as User[];
       } catch (error) {
-        console.error('Ошибка при парсинге данных из localStorage', error);
         return null;
       }
     }
@@ -24,9 +23,7 @@ export class LocalStorageUsersService {
     try {
       const data = JSON.stringify(users);
       localStorage.setItem(this.STORAGE_KEY, data);
-    } catch (error) {
-      console.error('Ошибка при сохранении данных в localStorage', error);
-    }
+    } catch (error) {}
   }
 
   removeUsers(): void {

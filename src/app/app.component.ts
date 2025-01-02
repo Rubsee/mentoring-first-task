@@ -12,6 +12,4 @@ import { UsersListComponent } from './users-list/users-list.component';
 })
 export class AppComponent {
   title = 'mentoring-first-project';
-
-  constructor() {}
 }
