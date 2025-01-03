@@ -1,6 +1,7 @@
 import { User } from './user.interface';
+import { AppError } from './appError.interface';
 
 export interface UsersSelectorState {
   users: User[];
-  error?: any;
+  error?: AppError | null;
 }
