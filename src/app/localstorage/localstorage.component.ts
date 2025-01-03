@@ -7,17 +7,26 @@ import { User } from '../interfaces/user.interface';
 export class LocalStorageUsersService {
   private readonly STORAGE_KEY = 'users';
 
-  getUsers(): User[] | null {
+  public getUsers(): User[] | null {
     const data = localStorage.getItem(this.STORAGE_KEY);
-    return data ? (JSON.parse(data) as User[]) : null;
+    if (data) {
+      try {
+        return JSON.parse(data) as User[];
+      } catch (error) {
+        return null;
+      }
+    }
+    return null;
   }
 
-  setUsers(users: User[]): void {
-    const data = JSON.stringify(users);
-    localStorage.setItem(this.STORAGE_KEY, data);
+  public setUsers(users: User[]): void {
+    try {
+      const data = JSON.stringify(users);
+      localStorage.setItem(this.STORAGE_KEY, data);
+    } catch (error) {}
   }
 
-  removeUsers(): void {
+  public removeUsers(): void {
     localStorage.removeItem(this.STORAGE_KEY);
   }
 }

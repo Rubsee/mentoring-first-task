@@ -16,7 +16,9 @@ export const loadUsers = createEffect(
           map((users) => {
             return UsersActions.loadUsersSuccess({ users });
           }),
-          catchError((error) => of(UsersActions.loadUsersFailure({ error }))),
+          catchError((error) => {
+            return of(UsersActions.loadUsersFailure({ error }));
+          }),
         );
       }),
     );

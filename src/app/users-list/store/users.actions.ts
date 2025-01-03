@@ -1,6 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { User } from '../../interfaces/user.interface';
-import { AppError } from '../../interfaces/appError.interface';
 
 export const UsersActions = createActionGroup({
   source: 'Users',
@@ -13,6 +12,6 @@ export const UsersActions = createActionGroup({
 
     loadUsers: emptyProps(),
     loadUsersSuccess: props<{ users: User[] }>(),
-    loadUsersFailure: props<{ error: AppError | null }>(),
+    loadUsersFailure: props<{ error: any }>(),
   },
 });
