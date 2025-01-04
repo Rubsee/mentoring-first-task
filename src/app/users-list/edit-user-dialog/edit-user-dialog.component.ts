@@ -37,7 +37,7 @@ export class EditUserDialogComponent implements OnInit {
   );
   private readonly fb = inject(FormBuilder);
 
-  readonly form = this.getUserFormGroup();
+  public readonly form = this.getUserFormGroup();
 
   private getUserFormGroup() {
     return this.fb.group({
@@ -61,11 +61,11 @@ export class EditUserDialogComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.initFormValue();
   }
 
-  onSave() {
+  public onSave() {
     if (this.form.valid) {
       this.dialogRef.close({
         ...this.data.user,
