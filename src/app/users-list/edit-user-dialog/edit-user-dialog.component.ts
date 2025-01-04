@@ -36,7 +36,6 @@ export class EditUserDialogComponent implements OnInit {
     MatDialogRef<EditUserDialogComponent, User>,
   );
   private readonly fb = inject(FormBuilder);
-
   public readonly form = this.getUserFormGroup();
 
   private getUserFormGroup() {
